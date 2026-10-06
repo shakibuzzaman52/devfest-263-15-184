@@ -1,163 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Tender Document Package Builder</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tender Document Package Builder</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <h1>Tender Document Package Builder</h1>
+<header class="topbar">
+<div class="brand">
+<div class="brand-mark">TD</div>
+<div>
+<h1 data-i18n="appTitle">Tender Document Package Builder</h1>
+<p>Document verification & package preparation</p>
+</div>
+</div>
 
-    <!-- =========================
-         REQUIREMENTS
-    ========================== -->
+<button id="languageBtn" class="language-btn">বাংলা</button>
+</header>
 
-    <section>
-        <h2>Load Tender Requirements</h2>
+<main>
 
-        <input
-            type="file"
-            id="requirementsFile"
-            accept=".json,application/json"
-        >
+<div class="page-intro">
+<div>
+<span class="eyebrow">TENDER PACKAGE</span>
+<h2>Prepare your submission package</h2>
+<p>Load the tender requirements, match your documents, verify expiry dates, and generate the final PDF.</p>
+</div>
+</div>
 
-        <p id="requirementsMessage"></p>
-    </section>
+<section class="card requirements-card">
+<div class="section-header">
+<div>
+<span class="step">01</span>
+<div>
+<h2 data-i18n="loadRequirements">Load Tender Requirements</h2>
+<p>Upload the requirements.json provided with the tender.</p>
+</div>
+</div>
+</div>
 
+<div class="file-input-row">
+<label class="file-picker">
+<span>Choose requirements.json</span>
+<input type="file" id="requirementsFile" accept=".json,application/json">
+</label>
+<span class="file-type">JSON</span>
+</div>
 
-    <!-- =========================
-         TENDER INFORMATION
-    ========================== -->
+<p id="requirementsMessage"></p>
+</section>
 
-    <section id="tenderSection" hidden>
+<section id="tenderSection" class="card tender-card" hidden>
 
-        <h2>Tender Information</h2>
+<div class="section-title">
+<div class="step">02</div>
+<div>
+<h2 data-i18n="tenderInformation">Tender Information</h2>
+<p>Review the tender details before preparing the package.</p>
+</div>
+</div>
 
-        <p>
-            <strong>Tender ID:</strong>
-            <span id="tenderId"></span>
-        </p>
+<div class="tender-grid">
+<div class="info-item">
+<span data-i18n="tenderId">Tender ID:</span>
+<strong id="tenderId"></strong>
+</div>
 
-        <p>
-            <strong>Title:</strong>
-            <span id="tenderTitle"></span>
-        </p>
+<div class="info-item">
+<span data-i18n="title">Title:</span>
+<strong id="tenderTitle"></strong>
+</div>
 
-        <p>
-            <strong>Procuring Entity:</strong>
-            <span id="procuringEntity"></span>
-        </p>
+<div class="info-item">
+<span data-i18n="procuringEntity">Procuring Entity:</span>
+<strong id="procuringEntity"></strong>
+</div>
 
-        <p>
-            <strong>Bidder:</strong>
-            <span id="bidder"></span>
-        </p>
+<div class="info-item">
+<span data-i18n="bidder">Bidder:</span>
+<strong id="bidder"></strong>
+</div>
 
-        <p>
-            <strong>Submission Deadline:</strong>
-            <span id="deadline"></span>
-        </p>
+<div class="info-item">
+<span data-i18n="deadline">Submission Deadline:</span>
+<strong id="deadline"></strong>
+</div>
+</div>
 
-    </section>
+</section>
 
+<section id="requirementsSection" class="card" hidden>
 
-    <!-- =========================
-         REQUIRED DOCUMENTS
-    ========================== -->
+<div class="section-title">
+<div class="step">03</div>
+<div>
+<h2 data-i18n="requiredDocuments">Required Documents</h2>
+<p>Every required document must be checked before generating the package.</p>
+</div>
+</div>
 
-    <section id="requirementsSection" hidden>
+<div class="status-summary">
+<div class="summary-item">
+<span class="summary-dot summary-red"></span>
+<div>
+<strong id="missingCount">0</strong>
+<span>Blocking</span>
+</div>
+</div>
 
-        <h2>Required Documents</h2>
+<div class="summary-item">
+<span class="summary-dot summary-green"></span>
+<div>
+<strong id="okCount">0</strong>
+<span>Ready</span>
+</div>
+</div>
 
-        <table>
+<div class="summary-item">
+<span class="summary-dot summary-gray"></span>
+<div>
+<strong id="optionalCount">0</strong>
+<span>Optional</span>
+</div>
+</div>
+</div>
 
-            <thead>
-                <tr>
-                    <th>Order</th>
-                    <th>Document</th>
-                    <th>Mandatory</th>
-                    <th>Expiry Required</th>
-                </tr>
-            </thead>
+<div class="table-wrap">
+<table class="requirements-table">
+<thead>
+<tr>
+<th data-i18n="order">Order</th>
+<th data-i18n="document">Document</th>
+<th data-i18n="mandatory">Mandatory</th>
+<th data-i18n="expiry">Expiry</th>
+<th data-i18n="status">Status</th>
+</tr>
+</thead>
+<tbody id="requirementsTableBody"></tbody>
+</table>
+</div>
 
-            <tbody id="requirementsTableBody">
-            </tbody>
+</section>
 
-        </table>
+<section class="card upload-card">
 
-    </section>
+<div class="section-title">
+<div class="step">04</div>
+<div>
+<h2 data-i18n="uploadFiles">Upload PDF Files</h2>
+<p>Upload the documents you want to include in the tender package.</p>
+</div>
+</div>
 
+<label class="upload-zone" for="pdfFiles">
+<div class="upload-icon">↑</div>
+<strong>Choose PDF files</strong>
+<span>Multiple files can be selected at once</span>
+<small>PDF only · Maximum 30 files · Maximum 50 MB total</small>
+<input type="file" id="pdfFiles" accept=".pdf,application/pdf" multiple>
+</label>
 
-    <!-- =========================
-         PDF UPLOAD
-    ========================== -->
+<p id="uploadMessage"></p>
 
-    <section id="uploadSection">
+<div class="table-wrap file-table-wrap">
+<table class="files-table">
+<thead>
+<tr>
+<th data-i18n="fileName">File Name</th>
+<th data-i18n="pages">Pages</th>
+<th data-i18n="size">Size</th>
+<th data-i18n="duplicate">Duplicate</th>
+<th data-i18n="match">Match</th>
+<th data-i18n="expiryDate">Expiry Date</th>
+<th data-i18n="action">Action</th>
+</tr>
+</thead>
+<tbody id="filesTableBody"></tbody>
+</table>
+</div>
 
-        <h2>Upload PDF Files</h2>
+</section>
 
-        <input
-            type="file"
-            id="pdfFiles"
-            accept="application/pdf,.pdf"
-            multiple
-        >
+<section class="generate-section">
 
-        <p>
-            Maximum files: 30
-            <br>
-            Maximum total size: 50 MB
-        </p>
+<div>
+<span class="generate-label">FINAL PACKAGE</span>
+<h2>Ready to generate?</h2>
+<p id="blockingMessage">Complete all required documents before generating.</p>
+</div>
 
-        <p id="uploadMessage"></p>
+<button id="generateBtn" class="generate-btn" disabled data-i18n="generate">
+Generate Package
+</button>
 
+</section>
 
-        <table>
+</main>
 
-            <thead>
-                <tr>
-                    <th>File Name</th>
-                    <th>Pages</th>
-                    <th>Size</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
+<footer>
+<p>Tender Document Package Builder · Frontend-only document processing</p>
+</footer>
 
-            <tbody id="filesTableBody">
-            </tbody>
-
-        </table>
-
-    </section>
-
-
-    <!-- =========================
-         PDF.JS
-    ========================== -->
-
-    <script type="module">
-
-        import * as pdfjsLib from
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
-
-        window.pdfjsLib = pdfjsLib;
-
-        pdfjsLib.GlobalWorkerOptions.workerSrc =
-            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
-
-    </script>
-
-
-    <!-- =========================
-         APPLICATION JS
-    ========================== -->
-
-    <script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="app.js"></script>
 
 </body>
 </html>

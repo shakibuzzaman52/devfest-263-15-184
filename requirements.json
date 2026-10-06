@@ -18,49 +18,17 @@
     {
       "id": "R02",
       "order": 2,
-      "title_en": "TIN Certificate",
-      "title_bn": "টিআইএন সার্টিফিকেট",
+      "title_en": "Tax Clearance Certificate",
+      "title_bn": "কর পরিশোধের সনদপত্র",
       "mandatory": true,
       "has_expiry": true
     },
     {
       "id": "R03",
       "order": 3,
-      "title_en": "VAT Certificate",
-      "title_bn": "ভ্যাট সার্টিফিকেট",
-      "mandatory": false,
-      "has_expiry": true
-    },
-    {
-      "id": "R04",
-      "order": 4,
       "title_en": "Bank Solvency Certificate",
-      "title_bn": "ব্যাংক সলভেন্সি সার্টিফিকেট",
-      "mandatory": true,
-      "has_expiry": false
-    },
-    {
-      "id": "R05",
-      "order": 5,
-      "title_en": "Experience Certificate",
-      "title_bn": "অভিজ্ঞতার সার্টিফিকেট",
+      "title_bn": "ব্যাংক সচ্ছলতা সনদ",
       "mandatory": false,
-      "has_expiry": false
-    },
-    {
-      "id": "R06",
-      "order": 6,
-      "title_en": "Technical Proposal",
-      "title_bn": "কারিগরি প্রস্তাব",
-      "mandatory": true,
-      "has_expiry": false
-    },
-    {
-      "id": "R07",
-      "order": 7,
-      "title_en": "Financial Proposal",
-      "title_bn": "আর্থিক প্রস্তাব",
-      "mandatory": true,
       "has_expiry": false
     }
   ]
