@@ -7,128 +7,33 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header class="topbar">
-<div class="brand">
-<div class="brand-mark">TD</div>
-<div>
+<header>
 <h1 data-i18n="appTitle">Tender Document Package Builder</h1>
-<p>Document verification & package preparation</p>
-</div>
-</div>
-
-<button id="languageBtn" class="language-btn">বাংলা</button>
+<button id="languageBtn">বাংলা</button>
 </header>
 
 <main>
-
-<div class="page-intro">
-<div>
-<span class="eyebrow">TENDER PACKAGE</span>
-<h2>Prepare your submission package</h2>
-<p>Load the tender requirements, match your documents, verify expiry dates, and generate the final PDF.</p>
-</div>
-</div>
-
-<section class="card requirements-card">
-<div class="section-header">
-<div>
-<span class="step">01</span>
-<div>
+<section class="card">
 <h2 data-i18n="loadRequirements">Load Tender Requirements</h2>
-<p>Upload the requirements.json provided with the tender.</p>
-</div>
-</div>
-</div>
-
-<div class="file-input-row">
-<label class="file-picker">
-<span>Choose requirements.json</span>
 <input type="file" id="requirementsFile" accept=".json,application/json">
-</label>
-<span class="file-type">JSON</span>
-</div>
-
 <p id="requirementsMessage"></p>
 </section>
 
-<section id="tenderSection" class="card tender-card" hidden>
-
-<div class="section-title">
-<div class="step">02</div>
-<div>
+<section id="tenderSection" class="card" hidden>
 <h2 data-i18n="tenderInformation">Tender Information</h2>
-<p>Review the tender details before preparing the package.</p>
+<div class="info">
+<p><strong data-i18n="tenderId">Tender ID:</strong> <span id="tenderId"></span></p>
+<p><strong data-i18n="title">Title:</strong> <span id="tenderTitle"></span></p>
+<p><strong data-i18n="procuringEntity">Procuring Entity:</strong> <span id="procuringEntity"></span></p>
+<p><strong data-i18n="bidder">Bidder:</strong> <span id="bidder"></span></p>
+<p><strong data-i18n="deadline">Submission Deadline:</strong> <span id="deadline"></span></p>
 </div>
-</div>
-
-<div class="tender-grid">
-<div class="info-item">
-<span data-i18n="tenderId">Tender ID:</span>
-<strong id="tenderId"></strong>
-</div>
-
-<div class="info-item">
-<span data-i18n="title">Title:</span>
-<strong id="tenderTitle"></strong>
-</div>
-
-<div class="info-item">
-<span data-i18n="procuringEntity">Procuring Entity:</span>
-<strong id="procuringEntity"></strong>
-</div>
-
-<div class="info-item">
-<span data-i18n="bidder">Bidder:</span>
-<strong id="bidder"></strong>
-</div>
-
-<div class="info-item">
-<span data-i18n="deadline">Submission Deadline:</span>
-<strong id="deadline"></strong>
-</div>
-</div>
-
 </section>
 
 <section id="requirementsSection" class="card" hidden>
-
-<div class="section-title">
-<div class="step">03</div>
-<div>
 <h2 data-i18n="requiredDocuments">Required Documents</h2>
-<p>Every required document must be checked before generating the package.</p>
-</div>
-</div>
-
-<div class="status-summary">
-<div class="summary-item">
-<span class="summary-dot summary-red"></span>
-<div>
-<strong id="missingCount">0</strong>
-<span>Blocking</span>
-</div>
-</div>
-
-<div class="summary-item">
-<span class="summary-dot summary-green"></span>
-<div>
-<strong id="okCount">0</strong>
-<span>Ready</span>
-</div>
-</div>
-
-<div class="summary-item">
-<span class="summary-dot summary-gray"></span>
-<div>
-<strong id="optionalCount">0</strong>
-<span>Optional</span>
-</div>
-</div>
-</div>
-
 <div class="table-wrap">
-<table class="requirements-table">
+<table>
 <thead>
 <tr>
 <th data-i18n="order">Order</th>
@@ -141,31 +46,16 @@
 <tbody id="requirementsTableBody"></tbody>
 </table>
 </div>
-
 </section>
 
-<section class="card upload-card">
-
-<div class="section-title">
-<div class="step">04</div>
-<div>
+<section class="card">
 <h2 data-i18n="uploadFiles">Upload PDF Files</h2>
-<p>Upload the documents you want to include in the tender package.</p>
-</div>
-</div>
-
-<label class="upload-zone" for="pdfFiles">
-<div class="upload-icon">↑</div>
-<strong>Choose PDF files</strong>
-<span>Multiple files can be selected at once</span>
-<small>PDF only · Maximum 30 files · Maximum 50 MB total</small>
 <input type="file" id="pdfFiles" accept=".pdf,application/pdf" multiple>
-</label>
-
+<p class="hint" data-i18n="uploadLimit">Maximum 30 files, 50 MB total</p>
 <p id="uploadMessage"></p>
 
-<div class="table-wrap file-table-wrap">
-<table class="files-table">
+<div class="table-wrap">
+<table>
 <thead>
 <tr>
 <th data-i18n="fileName">File Name</th>
@@ -180,32 +70,16 @@
 <tbody id="filesTableBody"></tbody>
 </table>
 </div>
-
 </section>
 
-<section class="generate-section">
-
-<div>
-<span class="generate-label">FINAL PACKAGE</span>
-<h2>Ready to generate?</h2>
-<p id="blockingMessage">Complete all required documents before generating.</p>
-</div>
-
-<button id="generateBtn" class="generate-btn" disabled data-i18n="generate">
-Generate Package
-</button>
-
+<section class="card generate-card">
+<p id="blockingMessage"></p>
+<button id="generateBtn" disabled data-i18n="generate">Generate Package</button>
 </section>
-
 </main>
-
-<footer>
-<p>Tender Document Package Builder · Frontend-only document processing</p>
-</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 <script src="app.js"></script>
-
 </body>
 </html>
