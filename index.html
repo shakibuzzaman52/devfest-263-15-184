@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tender Document Package Builder</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Tender Document Package Builder</h1>
+
+    <!-- =========================
+         REQUIREMENTS
+    ========================== -->
+
+    <section>
+        <h2>Load Tender Requirements</h2>
+
+        <input
+            type="file"
+            id="requirementsFile"
+            accept=".json,application/json"
+        >
+
+        <p id="requirementsMessage"></p>
+    </section>
+
+
+    <!-- =========================
+         TENDER INFORMATION
+    ========================== -->
+
+    <section id="tenderSection" hidden>
+
+        <h2>Tender Information</h2>
+
+        <p>
+            <strong>Tender ID:</strong>
+            <span id="tenderId"></span>
+        </p>
+
+        <p>
+            <strong>Title:</strong>
+            <span id="tenderTitle"></span>
+        </p>
+
+        <p>
+            <strong>Procuring Entity:</strong>
+            <span id="procuringEntity"></span>
+        </p>
+
+        <p>
+            <strong>Bidder:</strong>
+            <span id="bidder"></span>
+        </p>
+
+        <p>
+            <strong>Submission Deadline:</strong>
+            <span id="deadline"></span>
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         REQUIRED DOCUMENTS
+    ========================== -->
+
+    <section id="requirementsSection" hidden>
+
+        <h2>Required Documents</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Document</th>
+                    <th>Mandatory</th>
+                    <th>Expiry Required</th>
+                </tr>
+            </thead>
+
+            <tbody id="requirementsTableBody">
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <!-- =========================
+         PDF UPLOAD
+    ========================== -->
+
+    <section id="uploadSection">
+
+        <h2>Upload PDF Files</h2>
+
+        <input
+            type="file"
+            id="pdfFiles"
+            accept="application/pdf,.pdf"
+            multiple
+        >
+
+        <p>
+            Maximum files: 30
+            <br>
+            Maximum total size: 50 MB
+        </p>
+
+        <p id="uploadMessage"></p>
+
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Pages</th>
+                    <th>Size</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="filesTableBody">
+            </tbody>
+
+        </table>
+
+    </section>
+
+
+    <!-- =========================
+         PDF.JS
+    ========================== -->
+
+    <script type="module">
+
+        import * as pdfjsLib from
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs";
+
+        window.pdfjsLib = pdfjsLib;
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
+
+    </script>
+
+
+    <!-- =========================
+         APPLICATION JS
+    ========================== -->
+
+    <script src="app.js"></script>
+
+</body>
+</html>
